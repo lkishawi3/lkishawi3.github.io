@@ -10,20 +10,14 @@
 		let canvas = document.querySelector('canvas');
 		let context = canvas.getContext('2d');
 
-		//context.fillStyle = 'blue';
-		//context.fillRect(100, 100, 400, 400);
-
 		context.lineWidth = 4;
 		context.beginPath();
 		context.rect(100, 100, 400, 400);
-		//context.stroke();
 
 		context.beginPath();
 		context.arc(300, 300, 100, 0, Math.PI * 2);
-		//context.stroke();
+	
 			
-
-
 		const width = 60;
 		const height = 60;
 		const gap = 20;
@@ -46,99 +40,6 @@
 
 	}
 }
-
-
-//variables 
-
-		let year = 2042;
-		let nextYear = year + 1;
-
-		let dinner = "pasta";
-		let sentance = "Tonight, dinner will be" + dinner;
-
-//function
-
-		function saySomething(param) {
-			console.log(param);
-		} 
-
-		 saySomething(sentance);
-
-		 function add(a, b) {
-		 	return a + b;
-		 }
-
-		 let result = add(5, 7);
-		 console.log(result);
-
-		let multiply = (a, b) => {
-			return a * b;
-
-		}
-
-		console.log(multiply(5, 7));
-
-		let years = [];
-
-		let menu = ['starter', 'main', 'dessert', 'drinks', 'sides'];
-
-		for (let i = 0; i < menu.length; i++) {
-			console.log(menu[i]);
-		}
-
-		for (let i = 0; i < 10; i++) {
-			years.push(2040 + i);
-		}
-
-		console.log(years);
-	
-		const gravity = 9.81;
-		let velocity = 0.0;
-
-
-		menu.forEach(item => {
-			console.log(item);
-		});
-
 	</script>
-
 	</body>
-
 </html> 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
