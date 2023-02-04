@@ -3,12 +3,14 @@ h1 {
     font-family: verdana;
     font-size: 200%;
   }
-  a {
+
+a {
     font-family: courier;
     font-size: 100%;
+    color: black;
   }
 
-  #centre {
+#centre {
     
     text-align: center;
 
