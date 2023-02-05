@@ -3,63 +3,20 @@
 	<head>
 	<title>equalizer</title>
 	<link rel="stylesheet" type="text/css" href="eqstyle.css">
+    <script>src="eq.js"</script>
 
 	</head>
 	
 		<h1 style= "color: black; font-family: courier; font-size: 200%;
-        text-align: center;" id = "centre"><b>equalize-wip</b></h1>
+        text-align: center;" id = "centre"><b>equalizer</b></h1>
         <a href="/"><p style="text-align: center; color:black; font-family:courier; font-size: 100%;">>home</p></a>
 
 <body>
-    <audio src="/equalizer/01 Make It Bun Dem.mp3"></audio>
-    <div class="box">
-        <div class="equalizer"></div>
-    </div>
-    <div class="play">
-    <div class="btn btn-play"></div>
-</div>
-
-<div>
-
-
-</div>
+   
+    <div id="content">
+        <input type="file" id="thefile" accept="audio/*" />
+        <canvas id="canvas"></canvas>
+        <audio id="audio" controls></audio>
+      </div>
 </body>
-<script>
-    const btn = document.querySelector('.btn');
-    const audio = document.querySelector('audio');
-    const equalizer = document.querySelector('.equalizer')
-
-    btn.addEventListener('click', e => {
-        audio.paused ? audio.play() : audio.pause();
-        btn.classList.toggle('btn-play');
-        btn.classList.toggle('btn-pause');
-    });
-
-    window.AudioContext = window.AudioContext || window.webkitAudioContext;
-    const ctx = new window.AudioContext();
-    const analyser = ctx.createAnalyser();
-    const source = ctx.createMediaElementSource(audio);
-    source.connect(analyser);
-    source.connect(ctx.destination);
-    analyser.fftSize = 64;
-    const bufferLength = analyser.frequencyBinCount;
-
-    let dataArray = new Uint8Array(bufferLength);
-    let elements = [];
-    for(let i = 0; i < bufferLength; i++) {
-        const element = document.createElement('span');
-        element.classList.add('element');
-        elements.push(element);
-        equalizer.appendChild(element);
-    }
-
-    const update = () => {
-        requestAnimationFrame(update);
-        analyser.getByteFrequencyData(dataArray);
-        console.log(dataArray);
-    }
-
-</script>
-
-
 </html>
