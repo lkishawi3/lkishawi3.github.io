@@ -1,4 +1,7 @@
 const canvas = document.getElementById("canvas");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
 const audio = document.getElementById("audio-player");
 
 function playAudio() {
@@ -45,6 +48,7 @@ function loadAudio() {
 
 // get frequency data and draw on canvas
 function draw() {
+  console.log("draw");
   requestAnimationFrame(draw);
   const bufferLength = analyser.frequencyBinCount;
   const dataArray = new Uint8Array(bufferLength);
