@@ -28,7 +28,7 @@ function connectAudioSource() {
   if (source !== null) {
     source.disconnect();
   }
-  source = audioCtx.createMediaElementSource(audio-player);
+  source = audioCtx.createMediaElementSource(document.getElementById("audio-player"));
   source.connect(analyser);
   analyser.connect(audioCtx.destination);
 }
