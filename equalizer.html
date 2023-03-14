@@ -10,12 +10,12 @@
     <a href="/"><p style="text-align: center; color:black; font-family:courier; font-size: 100%;">>home</p></a>
 
     <div id="content">
-        <label onclick="playAudio()">Play Demo</label>
+      <label onclick="playAudio()">Play Demo</label>
 
-        <audio id="audio" preload="auto"></audio>
+      <audio id="audio-visualizer" preload="auto"></audio>
       <input type="file" accept="audio/*" onchange="loadAudio()" id="fileInput" style="display: none;">
       <canvas id="canvas" height="100"></canvas>
-    
+      <audio id="audio-player" controls></audio>
     </div>
 
     <script src="eq.js"></script>

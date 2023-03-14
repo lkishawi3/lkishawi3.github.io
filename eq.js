@@ -1,5 +1,5 @@
 const canvas = document.getElementById("canvas");
-const audio = document.getElementById("audio");
+const audio = document.getElementById("audio-player");
 
 function playAudio() {
   if (Math.random() < 0.5) {
@@ -7,7 +7,7 @@ function playAudio() {
   } else {
     audio.src = "/spring.mp3";
   }
-  
+
   audio.load();
   audio.play();
 }
