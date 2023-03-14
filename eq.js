@@ -4,16 +4,31 @@ canvas.height = window.innerHeight;
 
 const audio = document.getElementById("audio-player");
 
+function loadAudio() {
+  const file = fileInput.files[0];
+  const url = URL.createObjectURL(file);
+  audio.src = url;
+  audio.load();
+  connectAudioSource();
+}
+
 function playAudio() {
   if (Math.random() < 0.5) {
-    audio.src = "/Only Faith and Hope.mp3";
+    audio.src = "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3";
   } else {
-    audio.src = "/spring.mp3";
+    audio.src = "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3";
   }
+  '');
 
   audio.load();
-  audio.play();
+  audio.play()
+    .catch(error => {
+      // Audio playback failed, handle error here
+      console.error(error);
+    });
 }
+
+
 
 const ctx = canvas.getContext("2d");
 const fileInput = document.getElementById("fileInput");
@@ -71,3 +86,4 @@ draw();
 
 // play audio when the page has finished loading
 window.addEventListener('load', playAudio);
+
