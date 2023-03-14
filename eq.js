@@ -19,7 +19,6 @@ function playAudio() {
     audio.src = "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3";
   }
 
-
   audio.load();
   audio.play()
     .catch(error => {
@@ -27,8 +26,6 @@ function playAudio() {
       console.error(error);
     });
 }
-
-
 
 const ctx = canvas.getContext("2d");
 const fileInput = document.getElementById("fileInput");
@@ -86,4 +83,3 @@ draw();
 
 // play audio when the page has finished loading
 window.addEventListener('load', playAudio);
-
