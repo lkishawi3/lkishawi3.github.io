@@ -1,64 +1,66 @@
-window.onload = function() {
+const canvas = document.getElementById("canvas");
+const audio = document.getElementById("audio");
+
+function playAudio() {
+  if (Math.random() < 0.5) {
+    audio.src = "/Only Faith and Hope.mp3";
+  } else {
+    audio.src = "/spring.mp3";
+  }
   
-    var file = document.getElementById("thefile");
-    var audio = document.getElementById("audio");
-    
-    file.onchange = function() {
-      var files = this.files;
-      audio.src = URL.createObjectURL(files[0]);
-      audio.load();
-      audio.play();
-      var context = new AudioContext();
-      var src = context.createMediaElementSource(audio);
-      var analyser = context.createAnalyser();
-  
-      var canvas = document.getElementById("canvas");
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      var ctx = canvas.getContext("2d");
-  
-      src.connect(analyser);
-      analyser.connect(context.destination);
-  
-      analyser.fftSize = 256;
-  
-      var bufferLength = analyser.frequencyBinCount;
-      console.log(bufferLength);
-  
-      var dataArray = new Uint8Array(bufferLength);
-  
-      var WIDTH = canvas.width;
-      var HEIGHT = canvas.height;
-  
-      var barWidth = (WIDTH / bufferLength) * 2.5;
-      var barHeight;
-      var x = 0;
-  
-      function renderFrame() {
-        requestAnimationFrame(renderFrame);
-  
-        x = 0;
-  
-        analyser.getByteFrequencyData(dataArray);
-  
-        ctx.fillStyle = "#000";
-        ctx.fillRect(0, 0, WIDTH, HEIGHT);
-  
-        for (var i = 0; i < bufferLength; i++) {
-          barHeight = dataArray[i];
-          
-          var r = barHeight + (25 * (i/bufferLength));
-          var g = 250 * (i/bufferLength);
-          var b = 50;
-  
-          ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
-          ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
-  
-          x += barWidth + 1;
-        }
-      }
-  
-      audio.play();
-      renderFrame();
-    };
-  };
+  audio.load();
+  audio.play();
+}
+
+const ctx = canvas.getContext("2d");
+const fileInput = document.getElementById("fileInput");
+
+// create Web Audio API context
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+// create analyser node
+const analyser = audioCtx.createAnalyser();
+analyser.fftSize = 2048;
+
+// connect audio source to analyser node
+let source = null;
+function connectAudioSource() {
+  if (source !== null) {
+    source.disconnect();
+  }
+  source = audioCtx.createMediaElementSource(audio);
+  source.connect(analyser);
+  analyser.connect(audioCtx.destination);
+}
+
+// load selected audio file
+function loadAudio() {
+  const file = fileInput.files[0];
+  const url = URL.createObjectURL(file);
+  audio.src = url;
+  audio.load();
+  audio.play();
+  connectAudioSource();
+}
+
+// get frequency data and draw on canvas
+function draw() {
+  requestAnimationFrame(draw);
+  const bufferLength = analyser.frequencyBinCount;
+  const dataArray = new Uint8Array(bufferLength);
+  analyser.getByteFrequencyData(dataArray);
+  const width = canvas.width;
+  const height = canvas.height;
+  const barWidth = width / bufferLength;
+  ctx.clearRect(0, 0, width, height);
+  for (let i = 0; i < bufferLength; i++) {
+    const barHeight = dataArray[i] / 255 * height;
+    const x = i * barWidth;
+    const y = height - barHeight;
+    ctx.fillStyle = `rgb(${barHeight}, 0, 0)`;
+    ctx.fillRect(x, y, barWidth, barHeight);
+  }
+}
+
+// start visualization
+draw();

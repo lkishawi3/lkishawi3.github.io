@@ -1,22 +1,23 @@
 <!DOCTYPE html>
-<html lang="en"> 
-	<head>
-	<title>equalizer</title>
-	<link rel="stylesheet" type="text/css" href="eqstyle.css">
-    <script>src="eq.js"</script>
+<html lang="en">
+  <head>
+    <title>equalizer</title>
+    <link rel="stylesheet" type="text/css" href="eqstyle.css">
+  </head>
 
-	</head>
-	
-		<h1 style= "color: black; font-family: courier; font-size: 200%;
-        text-align: center;" id = "centre"><b>equalizer</b></h1>
-        <a href="/"><p style="text-align: center; color:black; font-family:courier; font-size: 100%;">>home</p></a>
+  <body>
+    <h1 style="color: black; font-family: courier; font-size: 200%; text-align: center;" id="centre"><b>equalizer</b></h1>
+    <a href="/"><p style="text-align: center; color:black; font-family:courier; font-size: 100%;">>home</p></a>
 
-<body>
-   
     <div id="content">
-        <input type="file" id="thefile" accept="audio/*" />
-        <canvas id="canvas"></canvas>
-        <audio id="audio" controls></audio>
-      </div>
-</body>
+        <label onclick="playAudio()">Play Demo</label>
+
+        <audio id="audio" preload="auto"></audio>
+      <input type="file" accept="audio/*" onchange="loadAudio()" id="fileInput" style="display: none;">
+      <canvas id="canvas" height="100"></canvas>
+    
+    </div>
+
+    <script src="eq.js"></script>
+  </body>
 </html>
