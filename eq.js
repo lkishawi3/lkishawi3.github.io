@@ -64,3 +64,6 @@ function draw() {
 
 // start visualization
 draw();
+
+// play audio when the page has finished loading
+window.addEventListener('load', playAudio);
