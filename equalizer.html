@@ -1,23 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>equalizer</title>
-    <link rel="stylesheet" type="text/css" href="eqstyle.css">
-  </head>
+<html>
+<head>
+  <link rel="stylesheet" href="style.css">
+	<title>Equalizer</title>
 
-  <body>
-    <h1 style="color: black; font-family: courier; font-size: 200%; text-align: center;" id="centre"><b>equalizer</b></h1>
-    <a href="/"><p style="text-align: center; color:black; font-family:courier; font-size: 100%;">>home</p></a>
+  <h1 id ="centre"><b>equalizer</b></h1>
+        <a href="/"><p style="text-align: center; color:black; font-family:courier; font-size: 100%;">>back</p></a>
+</head>
+	<style>
+canvas {
+  background-color: rgb(255, 255, 255);
+  display: block;
+  margin: 0 auto;
+}
 
-    <div id="content">
-      <label onclick="playAudio()">Play Demo</label>
+#canvas {
+  position: absolute;
+  z-index: -1;
+  top: 5px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
 
-      <audio id="audio-visualizer" preload="auto"></audio>
-      <input type="file" accept="audio/*" onchange="loadAudio()" id="fileInput" style="display: none;">
-      <canvas id="canvas" height="100"></canvas>
-      <audio id="audio-player" controls></audio>
-    </div>
+#title {
+  position: relative;
+  z-index: 2;
+}
 
-    <script src="eq.js"></script>
-  </body>
+#href {
+  z-index: 2;
+}
+
+
+	</style>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+	<audio id="audio-player" src="spring.mp3"></audio>
+
+	<script src="equalizer.js"></script>
+</body>
 </html>
