@@ -16,3 +16,10 @@ a {
     text-align: center;
 
   }
+
+#github-link {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  color: black;
+}
