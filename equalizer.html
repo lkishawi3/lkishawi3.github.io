@@ -2,43 +2,82 @@
 <html>
 <head>
   <link rel="stylesheet" href="style.css">
-	<title>Equalizer</title>
+  <title>Equalizer</title>
+  <style>
+    canvas {
+      background-color: rgb(255, 255, 255);
+      display: block;
+      margin: 0 auto;
+    }
 
-  <h1 id ="centre"><b>equalizer</b></h1>
-        <a href="/"><p style="text-align: center; color:black; font-family:courier; font-size: 100%;">>back</p></a>
-</head>
-	<style>
-canvas {
-  background-color: rgb(255, 255, 255);
-  display: block;
-  margin: 0 auto;
-}
+    #canvas {
+      position: absolute;
+      z-index: -1;
+      top: 0px;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
 
-#canvas {
+    #title {
+      position: relative;
+      z-index: 2;
+    }
+
+    #href {
+      z-index: 2;
+    }
+
+    button {
+      margin-top: 10px;
+      display: block;
+      margin: 0 auto;
+	  border: none;
+
+
+ 
+    }
+
+	.white-button {
+		background: none;
+  outline: none;
+  cursor: pointer;
+  color: black;
+  font-family: inherit;
+  font-size: inherit;
+  text-decoration: underline;
+	}
+
+	#change-background-button {
   position: absolute;
-  z-index: -1;
-  top: 5px;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 10px;
+  right: 10px;
+  font-family: courier;
+  font-size: 8x;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+#change-background-button:hover {
+  background-color: #fff;
+  color: #333;
 }
 
-#title {
-  position: relative;
-  z-index: 2;
-}
 
-#href {
-  z-index: 2;
-}
-
-
-	</style>
+  </style>
 </head>
 <body>
-	<canvas id="canvas"></canvas>
-	<audio id="audio-player" src="spring.mp3"></audio>
-
-	<script src="equalizer.js"></script>
+	<h1 id="header-text">Equalizer</h1>
+  <a href="/"><p id="back-text" style="text-align: center; font-family: courier; font-size: 100%;">>back</p></a>
+  <button id="white-button" class="white-button" style="text-align: center; font-family: courier; font-size: 100%; border: none; background-color: transparent;">white</button>
+  <canvas id="canvas"></canvas>
+  <audio id="audio-player" src="spring.mp3"></audio>
+  <button id="change-background-button">Random Background</button>
+  <button id="decrease-frequency" class="frequency-button">-</button>
+  <button id="increase-frequency" class="frequency-button">+</button>
+  <div id="frequency-display"></div>
+  <script src="equalizer.js"></script>
 </body>
 </html>
