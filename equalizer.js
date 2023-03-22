@@ -114,14 +114,15 @@ backLink.addEventListener("click", function() {
 whiteButton.addEventListener("click", function() {
   if (isWhite) {
     backLink.style.color = "black";
+    backLink.style.textDecorationColor = "black";
   }
   else {
     backLink.style.color = "white";
+    backLink.style.textDecorationColor = "white";
   }
 }); 
 
-  
-  
+
   // Retrieve the state of the background color from local storage and set the isWhite variable
   const storedIsWhite = localStorage.getItem("isWhite");
   if (storedIsWhite !== null) {
@@ -220,10 +221,33 @@ increaseFrequencyButton.addEventListener("click", function() {
           canvasCtx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
           x += barWidth;
         }
-      
+              
+        // Change the color of the text based on the background color
+        const textElements = document.querySelectorAll("#header-text, #frequency-display");
+        if (isWhite) {
+          textElements.forEach((elem) => {
+            elem.style.color = "black";
+            elem.style.backgroundColor = "transparent";
+          });
+        } else {
+          textElements.forEach((elem) => {
+            elem.style.color = "white";
+            elem.style.backgroundColor = "transparent";
+          });
+        }
+
         requestAnimationFrame(() => renderBars(highEndMultiplier));
       }
       
+// Check the current background color and set the isWhite variable accordingly
+const bgColor = getComputedStyle(canvas).backgroundColor;
+if (bgColor === "rgb(255, 255, 255)") {
+  isWhite = true;
+} else if (bgColor === "rgb(0, 0, 0)") {
+  isWhite = false;
+}
+
+
   
       renderBars(2);
     }
