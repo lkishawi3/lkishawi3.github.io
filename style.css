@@ -63,6 +63,12 @@ code {
   font-family: Courier, monospace;
 }
 
+@media only screen and (max-width: 767px) {
+  code {
+    font-size: 90%;
+  }
+}
+
 #blog-container {
   margin: 10px;
   display: flex;
@@ -97,6 +103,14 @@ code {
   padding: 0;
   cursor: pointer;
 
+}
+
+@media only screen and (max-width: 767px) {
+  .read-more-btn {
+    font-size: 100%;
+    color:black;
+    text-decoration: underline;
+  }
 }
 
 #image-container {
