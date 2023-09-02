@@ -82,6 +82,7 @@ code {
 }
 
 .blog-post {
+  position: relative;
   margin-bottom: 20px;
   padding: 10px;
   border: 0px solid #ddd;
@@ -94,7 +95,10 @@ code {
   display: none;
 }
 
+
+
 .read-more-btn {
+  position: absolute;
   margin-top: 10px;
   font-family: Courier, monospace;
   text-decoration: underline;
