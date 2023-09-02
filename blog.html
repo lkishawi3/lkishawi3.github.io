@@ -103,7 +103,7 @@
                         <span style="display: inline-block; margin-left: 40px;"></span>repaint();<br>
                         <span style="display: inline-block; margin-left: 20px;"></span>});<br>
                         this.add(nextSequenceButton);<br>
-                  }</code><br><br><div id ="image-container"><video controls = "false" width="500" autoplay loop><source src="/animationseq.webm" type="video/webm"width="70%" height="70%" alt="animation"></div><br><br>Amazing! but the animations are in reverse, to figure this I updated the SpriteRenderer.java.<br><div id ="image-container"><img src="/Spriterenderer.png" width="70%" height="70%" alt="spriterenderer"></div><br><br> The frames seem to be in order so it must be a bug somewhere in the conversion from lumps to image; to fix this for now I just changed the sprite index to play in the opposite direction, changing.<br><br><code>this.timer = new Timer(animationDelay, e -> {<br>
+                  }</code><br><br><div id ="image-container"><video width="500" height="500" autoplay loop><source src="/animationseq.webm" type="video/webm"width="70%" height="70%" alt="animationforward"></div><br><br>Amazing! but the animations are in reverse, to figure this I updated the SpriteRenderer.java.<br><div id ="image-container"><img src="/Spriterenderer.png" width="70%" height="70%" alt="spriterenderer"></div><br><br> The frames seem to be in order so it must be a bug somewhere in the conversion from lumps to image; to fix this for now I just changed the sprite index to play in the opposite direction, changing.<br><br><code>this.timer = new Timer(animationDelay, e -> {<br>
                   <span style="display: inline-block; margin-left: 60px;"></span>currentSpriteIndex = (currentSpriteIndex + 1) % spriteSequences.get(currentSequenceName).size();<br>
                   <span style="display: inline-block; margin-left: 60px;"></span>repaint();<br>
                 });<br>
@@ -115,7 +115,7 @@
                   <span style="display: inline-block; margin-left: 20px;"></span>}<br>
                   <span style="display: inline-block; margin-left: 20px;"></span>repaint();<br>
                 });<br>
-                timer.start();</code><br><br><div id ="image-container"><video controls = "false" width="500" autoplay loop><source src="/animationseqforward.webm" type="video/webm"width="70%" height="70%" alt="animationforward"></div><br> 
+                timer.start();</code><br><br><div id ="image-container"><video width="500" height="500" autoplay loop><source src="/animationseqforward.webm" type="video/webm"width="70%" height="70%" alt="animationforward"></div><br> 
                 </p>
               </div>
               <button class="read-more-btn">>Read More</button>
