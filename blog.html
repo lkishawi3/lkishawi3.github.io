@@ -12,6 +12,8 @@
 
 
         <div id="blog-container">
+
+         
           
                 <div class="blog-post">
                     <a href="https://github.com/lkishawi3/DoomEngine"><h2>Doom Engine</h2></a>
@@ -27,6 +29,97 @@
                 </div>
                 <button class="read-more-btn">>Read More</button>
                 </div>
+
+                <div class="blog-post">
+                  <a href="https://github.com/lkishawi3/DoomEngine"><h2>Doom Engine</h2></a>
+                  
+                  <p><b>Version 0.5</b></p>
+                  <p>Date: August 25, 2023</p>
+                  <div class ="short-content">
+                      <p>I've been working on sprite animation and rendering, since my attempts at rendering a top down view of the first level has had some problems. The first thing I did to render the level was create a new class "Level.java" to represent the doom level and retrieve the following lump. <br> <br> - Thing <br> - Linedef <br> - Vertex <br> - Sidedef <br> - Sector <br> <br> To understand the data in these lumps the Level class also parses and interprets the raw binary data from the WAD file and...</p>
+                  </div>
+                  <div class="full-content">
+                  <p>I've been working on sprite animation and rendering, since my attempts at rendering a top down view of the first level has had some problems. The first thing I did to render the level was create a new class "Level.java" to represent the doom level and retrieve the following lump. <br> <br> - Thing <br> - Linedef <br> - Vertex <br> - Sidedef <br> - Sector <br> <br> To understand the data in these lumps the Level class also parses and interprets the raw binary data from the WAD file and converts it into usable java objects e.g.<br> <br>  <code> <span style="display: inline-block; margin-left: 20px;"></span> private List<Thing> parseThings(byte[] data) { <br>
+                    List<Thing> things = new ArrayList<>(); <br>
+                    for (int i = 0; i + 9 < data.length; i += 10) {<br>
+                        int x = Byte.toUnsignedInt(data[i]) | <br>
+                        <span style="display: inline-block; margin-left: 20px;"></span> (Byte.toUnsignedInt(data[i + 1]) << 8);<br>
+                        int y = Byte.toUnsignedInt(data[i + 2]) | <br>
+                        <span style="display: inline-block; margin-left: 20px;"></span> (Byte.toUnsignedInt(data[i + 3]) << 8);<br>
+                        int angle = Byte.toUnsignedInt(data[i + 4]) | <br>
+                        <span style="display: inline-block; margin-left: 20px;"></span> (Byte.toUnsignedInt(data[i + 5]) << 8);<br>
+                        int type = Byte.toUnsignedInt(data[i + 6]) | <br>
+                        <span style="display: inline-block; margin-left: 20px;"></span>  (Byte.toUnsignedInt(data[i + 7]) << 8);<br>
+                        int flags = Byte.toUnsignedInt(data[i + 8]) | <br>
+                        <span style="display: inline-block; margin-left: 20px;"></span> (Byte.toUnsignedInt(data[i + 9]) << 8);<br>
+                        things.add(new Thing(x, y, angle, type, flags));<br>
+                    }<br>
+                    return things;<br>
+                  }</code><br><br> Two more classes were needed, "DoomViewer.java" and "LevelComponent.java". LevelComponent extends JComponent and paints the level grid on a GUI. <br> <br> <code> protected void paintComponent(Graphics g) { <br>
+                    <span style="display: inline-block; margin-left: 20px;"></span>super.paintComponent(g); <br><br>
+                    <span style="display: inline-block; margin-left: 20px;"></span>int[][] grid = level.getGrid();<br>
+                    <span style="display: inline-block; margin-left: 20px;"></span>for (int x = 0; x < grid.length; x++) { <br>
+                    <span style="display: inline-block; margin-left: 40px;"></span>for (int y = 0; y < grid.length; y++) { <br>
+                    <span style="display: inline-block; margin-left: 60px;"></span>if (grid[x][y] == 0) { <br>
+                    <span style="display: inline-block; margin-left: 80px;"></span>g.setColor(Color.WHITE); <br>
+                    <span style="display: inline-block; margin-left: 60px;"></span>} else if (grid[x][y] == 1) { <br>
+                    <span style="display: inline-block; margin-left: 80px;"></span>g.setColor(Color.BLACK); <br>
+                    <span style="display: inline-block; margin-left: 60px;"></span>} else { <br>
+                    <span style="display: inline-block; margin-left: 80px;"></span>g.setColor(Color.GRAY); <br>
+                    <span style="display: inline-block; margin-left: 60px;"></span>} <br><br>
+                    <span style="display: inline-block; margin-left: 60px;"></span>g.fillRect(x * 5, y * 5, 5, 5); <br>
+                    <span style="display: inline-block; margin-left: 40px;"></span>} <br>
+                    <span style="display: inline-block; margin-left: 20px;"></span>} <br>
+                  }</code><br><br> The paintComponent method uses its Graphics g object to fill rectangles on the screen for a top down view of the level.<br>DoomViewer.java is the executable that combines all the infomation, it also creates the Wadfile and Level instance.<br><br><code>public static void main(String[] args) { <br>
+                    <span style="display: inline-block; margin-left: 20px;"></span>// Create a WadFile instance<br>
+                    <span style="display: inline-block; margin-left: 20px;"></span>WadFile wadFile;<br>
+                    <span style="display: inline-block; margin-left: 20px;"></span>try {<br>
+                    <span style="display: inline-block; margin-left: 60px;"></span>wadFile = new WadFile("src/Doom1.WAD");<br>
+                    <span style="display: inline-block; margin-left: 60px;"></span>System.out.println("WadFile created successfully!"); <br>
+                    <span style="display: inline-block; margin-left: 60px;"></span>System.out.println("WadFile Header: " + wadFile.getHeader()); <br>
+                    <span style="display: inline-block; margin-left: 20px;"></span>} catch (IOException e) { <br>
+                    <span style="display: inline-block; margin-left: 60px;"></span>System.out.println("Failed to create WadFile");<br>
+                    <span style="display: inline-block; margin-left: 60px;"></span>e.printStackTrace(); <br>
+                    <span style="display: inline-block; margin-left: 60px;"></span>return;<br>
+                    <span style="display: inline-block; margin-left: 20px;"></span>}</code><br><br> And Jframe for the window.<br><br><code>JFrame frame = new JFrame("Doom Viewer");<br>
+                      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);<br>LevelComponent levelComponent = new LevelComponent(level);<br>
+                      frame.getContentPane().add(levelComponent);<br>frame.setSize(800, 600);<br>frame.setVisible(true);</code> <br><br>But when run it doesnt come out as expected. <br><div id ="image-container"><img src="/topdownerror.png" width="70%" height="70%" alt="topdownerror"></div> <br>After awhile of troubleshooting I figured out it could be because of a value used in some wad files, a 25565 byte represents null or 0, meaning no wall in that location. I tried to skip over these numbers or interpret them as null but this removes any rendering of the walls at all. <br><br> In the meantime I worked on the character renderer.<br><br><code>WadFile wadFile = new WadFile("src/DOOM1.WAD");<br>
+                        Map<String, byte[]> spriteDataMap = new HashMap<>();<br>
+                        byte[] paletteData = null;<br>
+                        Map<String, String> lumpToSequence = new HashMap<>();<br>
+                        lumpToSequence.put("TROOA1", "sequence1");<br>
+                        lumpToSequence.put("TROOB1", "sequence1");<br>
+                        lumpToSequence.put("TROOC1", "sequence1");<br>
+                        lumpToSequence.put("TROOD1", "sequence1");<br>
+                        lumpToSequence.put("TROOE1", "sequence2");<br>
+                        lumpToSequence.put("TROOF1", "sequence2");<br>
+                        lumpToSequence.put("TROOG1", "sequence2");<br>
+                      </code><br><br>Added sequences of animations that can be cycled through with a button
+                      <br><br><code>nextSequenceButton = new JButton("Next Sequence");<br>
+                        <span style="display: inline-block; margin-left: 20px;"></span>nextSequenceButton.addActionListener(e -> {<br>
+                        <span style="display: inline-block; margin-left: 40px;"></span>int currentIndex = sequenceNames.indexOf(currentSequenceName);<br>
+                        <span style="display: inline-block; margin-left: 40px;"></span>currentSequenceName = sequenceNames.get((currentIndex + 1) % sequenceNames.size());<br>
+                        <span style="display: inline-block; margin-left: 40px;"></span>currentSpriteIndex = 0;<br>
+                        <span style="display: inline-block; margin-left: 40px;"></span>repaint();<br>
+                        <span style="display: inline-block; margin-left: 20px;"></span>});<br>
+                        this.add(nextSequenceButton);<br>
+                  }</code><br><br><div id ="image-container"><video controls = "false" width="500" autoplay loop><source src="/animationseq.webm" type="video/webm"width="70%" height="70%" alt="animation"></div><br><br>Amazing! but the animations are in reverse, to figure this I updated the SpriteRenderer.java.<br><div id ="image-container"><img src="/spriterenderer.png" width="70%" height="70%" alt="spriterenderer"></div><br><br> The frames seem to be in order so it must be a bug somewhere in the conversion from lumps to image; to fix this for now I just changed the sprite index to play in the opposite direction, changing.<br><br><code>this.timer = new Timer(animationDelay, e -> {<br>
+                  <span style="display: inline-block; margin-left: 60px;"></span>currentSpriteIndex = (currentSpriteIndex + 1) % spriteSequences.get(currentSequenceName).size();<br>
+                  <span style="display: inline-block; margin-left: 60px;"></span>repaint();<br>
+                });<br>
+                timer.start();</code><br><br> to this <br><br>
+                  <code>this.timer = new Timer(animationDelay, e -> {<br>
+                  <span style="display: inline-block; margin-left: 20px;"></span>currentSpriteIndex--;<br>
+                  <span style="display: inline-block; margin-left: 20px;"></span>if (currentSpriteIndex < 0) {<br>
+                  <span style="display: inline-block; margin-left: 60px;"></span>currentSpriteIndex = spriteSequences.get<br>(currentSequenceName).size() - 1;<br>
+                  <span style="display: inline-block; margin-left: 20px;"></span>}<br>
+                  <span style="display: inline-block; margin-left: 20px;"></span>repaint();<br>
+                });<br>
+                timer.start();</code><br><br><div id ="image-container"><video controls = "false" width="500" autoplay loop><source src="/animationseqforward.webm" type="video/webm"width="70%" height="70%" alt="animationforward"></div><br> 
+                </p>
+              </div>
+              <button class="read-more-btn">>Read More</button>
+              </div>
 
             </div>
 
