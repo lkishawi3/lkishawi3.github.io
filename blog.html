@@ -115,50 +115,61 @@
                   <span style="display: inline-block; margin-left: 20px;"></span>}<br>
                   <span style="display: inline-block; margin-left: 20px;"></span>repaint();<br>
                 });<br>
-                timer.start();</code><br><br><div id ="image-container"><video width="500" height="500" autoplay loop><source src="/animationseqforward.webm" type="video/webm"width="70%" height="70%" alt="animationforward"></div><br> 
+                timer.start();</code><br><br><div id ="image-container"><video width="500" height="500" autoplay loop><source src="/animationseqforward.webm" type="video/webm"width="70%" height="70%" alt="animationforward"></div><br>
                 </p>
               </div>
-              <button class="read-more-btn" onclick="playVideo()">>Read More</button>
+              <button class="read-more-btn" >>Read More</button>
               </div>
 
             </div>
 
             <script>
             const readMoreButtons = document.querySelectorAll('.read-more-btn');
+            const videos = document.querySelectorAll('video');
 
-            function playVideo() {
-              var video = document.querySelector('video');
-              video.play();
-            }
+            
+              document.addEventListener('DOMContentLoaded', function() {
+              videos.forEach((video) => {
+                video.load();
+              });
 
-readMoreButtons.forEach((button) => {
+              
+            
+
+readMoreButtons.forEach((button) => { 
   button.addEventListener('click', () => {
     const blogPost = button.parentNode;
     const shortContent = blogPost.querySelector('.short-content');
     const fullContent = blogPost.querySelector('.full-content');
-    let video = document.querySelector('video');
-    if (video.playbackState === 'paused') {
-      video.play();
-    }
     
 
     if (fullContent.style.display === 'none' || fullContent.style.display === '') {
       fullContent.style.display = 'block';
       shortContent.style.display = 'none';
       button.textContent = 'Close';
+      videos.forEach((video) => {
+        video.play();
+      });
     } else {
       fullContent.style.display = 'none';
       shortContent.style.display = 'block';
       button.textContent = '>Read More';
-    }
+      videos.forEach((video) => {
+        video.pause();
+        video.currentTime = 0;
+      });
+      }
+    });
   });
 });
-function playVideo() {
-  var video = document.querySelector('video');
-  if (!video.hasPlayed) {
-    video.play();
-  }
-}
+
+window.addEventListener('beforeunload', function() {
+  videos.forEach((video) => {
+    video.pause();
+    video.currentTime = 0;
+  });
+});
+
 </script>
         
 </html>

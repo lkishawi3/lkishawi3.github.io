@@ -221,6 +221,7 @@ increaseFrequencyButton.addEventListener("click", function() {
           canvasCtx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
           x += barWidth;
         }
+
               
         // Change the color of the text based on the background color
         const textElements = document.querySelectorAll("#header-text, #frequency-display");
